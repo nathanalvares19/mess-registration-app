@@ -1,0 +1,51 @@
+<!-- frontend/admin/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <!-- Make sure this points to your admin.css -->
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="dashboard-header">
+    <h1>Mess Registration Dashboard</h1>
+    <div class="controls">
+      <button id="download-report">Download CSV</button>
+      <a href="change-plans.html" class="button">Change Plans</a>
+      <button id="logout-btn">Logout</button>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="registrations-section">
+      <h2>Registered Students</h2>
+
+      <!-- ← wrap your table in this container for styling & horizontal scroll -->
+      <div class="table-container">
+        <table id="registrations-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Roll No.</th>
+              <th>Mess Plan</th>
+              <th>Registered On</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- admin.js will inject rows here -->
+          </tbody>
+        </table>
+      </div>
+
+      <p id="no-data" class="no-data" style="display:none;">
+        No registrations found.
+      </p>
+    </section>
+  </main>
+
+  <!-- your admin logic -->
+  <script src="../script/admin.js"></script>
+</body>
+</html>
