@@ -31,5 +31,3 @@ A full-stack web application built for college students to register/unregister f
 | Hosting  | Netlify (frontend) + Render (backend)             |
 
 ---
-
-
