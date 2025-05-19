@@ -32,27 +32,4 @@ A full-stack web application built for college students to register/unregister f
 
 ---
 
-## 🚀 Getting Started
 
-### ⚙️ Backend Setup (Flask)
-
-1. Navigate to the backend folder:
-
-   ```bash
-   cd backend
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
-
-2. Run the server:
-   ```bash
-   python run.py
-   ```
-
-### 🌐 Frontend
-
-- Simply open `frontend/login.html` or deploy using Netlify/GitHub Pages.
-- Connect it to the backend by updating `fetch()` URLs.
-
----
