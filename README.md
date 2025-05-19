@@ -1,6 +1,6 @@
 # 🍽️ Mess Registration App
 
-A full-stack web application built for college students to register/unregister for mess plans on a weekly or monthly basis. Designed with separate dashboards for students and admins, this app makes it easy to manage mess operations, monitor registrations, and communicate announcements — all from a clean and responsive interface.
+A full-stack web application built for IITH students to register for mess plans on a weekly or monthly basis. Designed with separate dashboards for students and admins, this app makes it easy to manage mess operations and monitor registrations — all from a clean and responsive interface.
 
 ---
 
@@ -8,17 +8,16 @@ A full-stack web application built for college students to register/unregister f
 
 ### 👤 Student Dashboard
 
-- Register and log in
+- Sign up and log in
 - Choose mess plans (weekly or monthly)
 - View current registration status
-- Track historical registrations
+- View registration history
 
 ### 🛠️ Admin Dashboard
 
 - View all student registrations
 - Download CSV reports
-- Broadcast announcements to students
-- Manage mess plan options (extendable)
+- Manage mess plan options 
 
 ### 🧠 Tech Stack
 
