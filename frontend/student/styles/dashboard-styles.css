@@ -137,6 +137,8 @@ body {
   left: 50px;
   top: 20px;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+  color: #f07400;
+  /* background-color: #f07400; */
 }
 
 .profile-container .photo {
@@ -150,6 +152,7 @@ body {
   /* object-fit: fill; */
   overflow: hidden;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+  background-color: white;
 }
 
 .profile-container .photo img {
@@ -169,7 +172,7 @@ body {
   align-items: center;
   font-size: 25px;
   background-color: rgb(255, 255, 255);
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 
@@ -191,6 +194,7 @@ body {
   box-sizing: border-box;
   /* gap: 5px; */
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+  background-color: white;
 }
 .profile-container .email-container {
   /* border: 1px solid; */
@@ -207,35 +211,46 @@ body {
 }
 
 .label {
-  font-weight: 300;
+  /* font-weight: 300; */
   font-size: 13px;
+  color: black;
 }
 
 .register-button {
   top: 60px;
+  background-color: #f07400;
+}
+
+.register-button:hover {
+  background-color: #d66700;
 }
 
 #register-button:link {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
 #register-button:visited {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
 .unregister-button {
   top: 180px;
+  background-color: #f07400;
+}
+
+.unregister-button:hover {
+  background-color: #d66700;
 }
 
 #unregister-button:link {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
 #unregister-button:visited {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -252,15 +267,20 @@ body {
   align-items: center;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  color: #f07400;
+}
+
+.history-container:hover {
+  background-color: #fafafa;
 }
 
 #history:link {
-  color: black;
+  color: #f07400;
   text-decoration: none;
 }
 
 #history:visited {
-  color: black;
+  color: #f07400;
   text-decoration: none;
 }
 
@@ -276,14 +296,19 @@ body {
   align-items: center;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  color: #f07400;
+}
+
+.logout:hover {
+  background-color: #fafafa;
 }
 
 #logout:link {
-  color: black;
+  color: #f07400;
   text-decoration: none;
 }
 
 #logout:visited {
-  color: black;
+  color: #f07400;
   text-decoration: none;
 }

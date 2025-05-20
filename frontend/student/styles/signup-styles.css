@@ -138,6 +138,7 @@ body {
   top: 40px;
   font-size: 25px;
   /* border: 1px solid; */
+  color: #f07400;
 }
 
 .student-auth-container .form-container {
@@ -181,14 +182,15 @@ button {
 
 .student-auth-container .form-container #student-login-form button {
   cursor: pointer;
-  background-color: rgb(240, 240, 240);
+  background-color: #f07400;
   border: none;
   font-size: 18px;
+  color: white;
 }
 
 .student-auth-container .form-container #student-login-form button:hover {
   cursor: pointer;
-  background-color: rgb(225, 225, 225);
+  background-color: #d66700;
 }
 
 .student-auth-container .signup-container {
@@ -215,5 +217,5 @@ button {
 }
 
 .student-auth-container .signup-container a:hover {
-  color: rgb(3, 107, 252);
+  color: #f07400;
 }
