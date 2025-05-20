@@ -97,6 +97,22 @@ body {
   align-items: center;
 }
 
+.mess-photo {
+  height: 90px;
+  width: 730px;
+  /* border: 1px solid; */
+  overflow: hidden;
+  position: absolute;
+  right: 20px;
+}
+
+.mess-photo img {
+  height: 100px;
+  width: 750px;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* ! --- app-header --- !*/
 
 .student-auth-container {
