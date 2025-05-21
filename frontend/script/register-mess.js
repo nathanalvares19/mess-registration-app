@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "active-month"
   ).textContent = `${displayMonth} ${year}`;
 
-  // handle form submission
+  // form submission handler
   document
     .getElementById("registration-form")
     .addEventListener("submit", async function (e) {
@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const response = await fetch("http://localhost:5000/register-mess", {
           method: "POST",
+          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -99,8 +100,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (response.ok) {
           alert(result.message);
-          sessionStorage.setItem("messType", messType);
-          sessionStorage.setItem("planType", planType);
+          // sessionStorage.setItem("messType", messType);
+          // sessionStorage.setItem("planType", planType);
           window.location.href = "dashboard.html";
         } else {
           alert("Error: " + result.message);

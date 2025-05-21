@@ -5,7 +5,10 @@ import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
-CORS(app)
+# CORS(app)
+CORS(app, supports_credentials=True)
+
+
 
 # users database
 USERS_FILE = 'users.json'
@@ -17,11 +20,15 @@ if os.path.exists(USERS_FILE):
 else:
     users = {}
 
+# mess registrations database
+MESS_DATA_FILE = 'mess_data.json'
 
-# # Simple users dict with email: password in plain text (for testing only)
-# users = {
-#     'student@iith.ac.in': 'mypassword123'
-# }
+# Load data from file at startup
+if os.path.exists(MESS_DATA_FILE):
+    with open(MESS_DATA_FILE, 'r') as f:
+        registrations = json.load(f)
+else:
+    registrations = {}
 
 # login
 @app.route('/login', methods=['POST'])
@@ -67,16 +74,39 @@ def register_mess():
     if not mess or not plan:
         return jsonify({'message': 'Missing mess or plan selection'}), 400
 
-    user_email = session['user']
+    else:
+        user_email = session['user']
 
-    registrations[user_email] = {
-        'mess': mess,
-        'plan': plan
-    }
+        registrations[user_email] = {
+            'mess': mess,
+            'plan': plan
+        }
 
-    print(f"Registered {user_email} for mess {mess} with plan {plan}")
+        # Save updated users to file
+        with open(MESS_DATA_FILE, 'w') as f:
+            json.dump(registrations, f)
 
-    return jsonify({'message': 'Mess registration successful'})
+        print(f"Registered {user_email} for mess {mess} with plan {plan}")
+
+        return jsonify({'message': 'Mess registration successful'})
+
+# get email of current user
+@app.route('/current-user', methods=['GET'])
+def current_user():
+    if 'user' in session:
+        return jsonify({'email': session['user']}), 200
+    else:
+        return jsonify({'email': None}), 401
+
+# get mess data of current user
+@app.route('/mess_data', methods=['GET'])
+def get_mess_data():
+    if os.path.exists(MESS_DATA_FILE):
+        with open(MESS_DATA_FILE, 'r') as f:
+            data = json.load(f)
+        return jsonify(data)
+    else:
+        return jsonify({"error": "File not found"}), 404
 
 
 if __name__ == '__main__':
