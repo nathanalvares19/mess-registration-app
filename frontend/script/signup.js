@@ -1,6 +1,6 @@
-// create account redirect
+// log in redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
-  window.location.href = "./signup.html";
+  window.location.href = "./login.html";
 });
 
 // form submission handler
@@ -13,7 +13,7 @@ document
     const password = document.getElementById("password").value;
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("http://localhost:5000/signup", {
         // Your Flask backend URL
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,8 +25,8 @@ document
       console.log(result);
 
       if (response.ok) {
-        alert(result.message); // Successful login
-        window.location.href = "./dashboard.html"; // Redirect to dashboard (change if needed)
+        alert(result.message); // Successful signup
+        window.location.href = "./login.html"; // Redirect to login
       } else {
         alert(result.message); // Show error message
       }

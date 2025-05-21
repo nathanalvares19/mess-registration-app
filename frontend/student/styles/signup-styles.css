@@ -167,7 +167,7 @@ body {
 }
 
 .student-auth-container .form-container #student-login-form #email,
-#password,
+.password,
 button {
   /* border: 1px solid black; */
   border: none;
@@ -197,6 +197,7 @@ button {
   position: absolute;
   bottom: 40px;
   font-size: 20px;
+  cursor: pointer;
   /* border: 1px solid;  */
   /* height: 40px; */
   /* width: 130px; */
@@ -207,15 +208,6 @@ button {
   /* background-color: rgb(245, 245, 245); */
 }
 
-.student-auth-container .signup-container a:link {
-  color: black;
-  text-decoration: none;
-}
-
-.student-auth-container .signup-container a:visited {
-  color: black;
-}
-
-.student-auth-container .signup-container a:hover {
+.student-auth-container .signup-container:hover {
   color: #f07400;
 }
