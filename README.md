@@ -29,4 +29,5 @@ A full-stack web application built for IITH students to register/unregister for 
 | Auth     | Basic session/auth logic (can be extended to JWT) |
 | Hosting  | Netlify (frontend) + Render (backend)             |
 
+- No password hashing (yet)
 ---
