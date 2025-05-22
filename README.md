@@ -32,4 +32,5 @@ A full-stack web application built for IITH students to register/unregister for 
 ### 🕒 Coming Soon 
 - Password Hashing
 - Responsive Web Design
+- Other Security Measures
 ---
