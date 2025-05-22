@@ -10,6 +10,14 @@ document
     event.preventDefault(); // Prevent page reload on form submit
 
     const email = document.getElementById("email").value;
+
+    // Email domain check
+    if (!email.endsWith("@iith.ac.in")) {
+      alert("Invalid email (only @iith.ac.in allowed)");
+      window.location.reload(); // Reload to reset form and stay on same page
+      return; // Stop further processing
+    }
+
     const password = document.getElementById("password").value;
 
     try {
@@ -29,6 +37,7 @@ document
         window.location.href = "./login.html"; // Redirect to login
       } else {
         alert(result.message); // Show error message
+        window.location.href = "./login.html";
       }
     } catch (error) {
       alert("Error connecting to server");
