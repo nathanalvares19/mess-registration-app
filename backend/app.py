@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, session
+from datetime import datetime
 from flask_cors import CORS
 import json
 import os
@@ -29,6 +30,9 @@ if os.path.exists(MESS_DATA_FILE):
         registrations = json.load(f)
 else:
     registrations = {}
+
+# history database
+HISTORY_FILE = 'history_data.json'
 
 # login
 @app.route('/login', methods=['POST'])
@@ -86,9 +90,30 @@ def register_mess():
         with open(MESS_DATA_FILE, 'w') as f:
             json.dump(registrations, f)
 
-        print(f"Registered {user_email} for mess {mess} with plan {plan}")
+    # Save to history
+    timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    history_entry = {
+        "email": session["user"],
+        "mess": mess,
+        "plan": plan,
+        "timestamp": timestamp,
+        "status": "registered"
+    }
 
-        return jsonify({'message': 'Mess registration successful'})
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, "r") as f:
+            history_data = json.load(f)
+    else:
+        history_data = []
+
+    history_data.append(history_entry)
+
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history_data, f, indent=2)
+
+        # print(f"Registered {user_email} for mess {mess} with plan {plan}")
+
+    return jsonify({'message': 'Mess registration successful'})
 
 # get email of current user
 @app.route('/current-user', methods=['GET'])
@@ -131,11 +156,52 @@ def unregister_user():
             with open(MESS_DATA_FILE, 'w') as f:
                 json.dump(data, f)
 
+            # Save to history
+            timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+            history_entry = {
+                "email": email,
+                "mess": "-",
+                "plan": "-",
+                "timestamp": timestamp,
+                "status": "unregistered"
+            }
+
+            if os.path.exists(HISTORY_FILE):
+                with open(HISTORY_FILE, "r") as f:
+                    history_data = json.load(f)
+            else:
+                history_data = []
+
+            history_data.append(history_entry)
+
+            with open(HISTORY_FILE, "w") as f:
+                json.dump(history_data, f, indent=2)
+
             return jsonify({"message": "User unregistered successfully"}), 200
         else:
             return jsonify({"error": "User not registered"}), 404
     else:
         return jsonify({"error": "File not found"}), 404
+
+
+
+# history 
+@app.route('/get-history', methods=['GET'])
+def get_history():
+    email = session.get('user')
+    if not email:
+        return jsonify([])
+
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE, "r") as f:
+            history_data = json.load(f)
+            user_history = [entry for entry in history_data if entry["email"] == email]
+            user_history.sort(key=lambda x: x["timestamp"], reverse=True)  # Latest first
+            return jsonify(user_history)
+
+    return jsonify([])
+
+
 
 
 

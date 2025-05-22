@@ -114,3 +114,92 @@ body {
 }
 
 /* ! --- app-header --- !*/
+
+.history-table-container {
+  /* border: 1px solid; */
+  height: auto;
+  width: auto;
+  border-radius: 20px;
+  position: absolute;
+  top: 240px;
+  left: 250px;
+  right: 250px;
+  /* display: flex; */
+  /* justify-content: space-evenly; */
+  /* align-items: center; */
+  padding: 20px;
+  /* background-color: #f07400; */
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  table-layout: fixed;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  font-family: "Ubuntu";
+  color: #e67e22;
+  word-wrap: break-word;
+  font-weight: 400;
+}
+
+th {
+  color: #000;
+  font-weight: bold;
+}
+
+td:nth-child(1),
+th:nth-child(1) {
+  width: 20%;
+}
+
+td:nth-child(2),
+th:nth-child(2) {
+  width: 35%;
+}
+
+td:nth-child(3),
+th:nth-child(3) {
+  width: 20%;
+}
+
+td:nth-child(4),
+th:nth-child(4) {
+  width: 25%;
+}
+
+.back-button {
+  /* border: 1px solid red; */
+  height: 50px;
+  width: 100px;
+  border-radius: 10px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  left: 2px;
+  top: 110px;
+}
+
+#back {
+  transform: scale(0.4);
+}
+
+#history-table-header {
+  position: absolute;
+  /* border: 1px solid orange; */
+  width: auto;
+  height: auto;
+  left: 500px;
+  right: 500px;
+  text-align: center;
+  top: 170px;
+  font-size: 45px;
+}
