@@ -1,8 +1,11 @@
 window.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("http://localhost:5000/get-history", {
-      credentials: "include",
-    });
+    const response = await fetch(
+      "https://mess-registration-app-backend.onrender.com/get-history",
+      {
+        credentials: "include",
+      }
+    );
     const data = await response.json();
 
     const tbody = document.querySelector("#history-table tbody");

@@ -13,13 +13,16 @@ document
     const password = document.getElementById("password").value;
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
-        // Your Flask backend URL
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }), // Send as JSON
-      });
+      const response = await fetch(
+        "https://mess-registration-app-backend.onrender.com/login",
+        {
+          // Your Flask backend URL
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }), // Send as JSON
+        }
+      );
 
       const result = await response.json();
 

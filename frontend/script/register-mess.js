@@ -87,14 +87,17 @@ document.addEventListener("DOMContentLoaded", function () {
       submitButton.disabled = true;
 
       try {
-        const response = await fetch("http://localhost:5000/register-mess", {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ mess: messType, plan: planType }),
-        });
+        const response = await fetch(
+          "https://mess-registration-app-backend.onrender.com/register-mess",
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ mess: messType, plan: planType }),
+          }
+        );
 
         const result = await response.json();
 

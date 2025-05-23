@@ -54,7 +54,7 @@ const status = document.querySelector(".status");
 email = "";
 
 // get email of user
-fetch("http://localhost:5000/current-user", {
+fetch("https://mess-registration-app-backend.onrender.com/current-user", {
   method: "GET",
   credentials: "include", // important to send cookies/session info
 })
@@ -76,7 +76,7 @@ fetch("http://localhost:5000/current-user", {
 const unregisterDiv = document.querySelector(".unregister-button");
 
 function unregisterHandler() {
-  fetch("http://localhost:5000/unregister-user", {
+  fetch("https://mess-registration-app-backend.onrender.com/unregister-user", {
     method: "GET",
     credentials: "include",
   })
@@ -183,9 +183,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // fetch mess data
   try {
-    const response = await fetch("http://localhost:5000/mess_data", {
-      credentials: "include",
-    });
+    const response = await fetch(
+      "https://mess-registration-app-backend.onrender.com/mess_data",
+      {
+        credentials: "include",
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
