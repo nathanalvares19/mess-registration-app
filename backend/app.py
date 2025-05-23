@@ -201,8 +201,9 @@ def get_history():
 
     return jsonify([])
 
-
-
+@app.route('/')
+def index():
+    return "Backend is live!"
 
 
 if __name__ == '__main__':
