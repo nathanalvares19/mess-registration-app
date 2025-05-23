@@ -27,7 +27,7 @@ A full-stack web application built for IITH students to register/unregister for 
 | Backend  | Python + Flask                                    |
 | Database | SQLite (can be extended to MongoDB)               |
 | Auth     | Basic session/auth logic (can be extended to JWT) |
-| Hosting  | Vercel            |
+| Hosting  | Vercel(frontend) + Render(backend)           |
 
 ### 🕒 Coming Soon 
 - Password Hashing
