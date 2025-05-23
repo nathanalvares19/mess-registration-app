@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 // logout handler
 document.querySelector(".logout").addEventListener("click", () => {
   alert("User successfully logged out");
-  window.location.href = "./login.html";
+  window.location.href = "./index.html";
 });
 
 // history button
