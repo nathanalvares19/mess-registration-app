@@ -1,18 +1,24 @@
 from flask import Flask, request, jsonify, session
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_cors import CORS
 import json
 import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
+
 # CORS(app)
-CORS(app, supports_credentials=True)
+app.config['SESSION_COOKIE_SAMESITE'] = "None"
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
+CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
 
-
-# users database
-USERS_FILE = 'users.json'
+# USERS + MESS_DATA + HISTORY files
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+USERS_FILE = os.path.join(BASE_DIR, 'users.json')
+MESS_DATA_FILE = os.path.join(BASE_DIR, 'mess_data.json')
+HISTORY_FILE = os.path.join(BASE_DIR, 'history_data.json')
 
 # Load users from file at startup
 if os.path.exists(USERS_FILE):
@@ -21,18 +27,12 @@ if os.path.exists(USERS_FILE):
 else:
     users = {}
 
-# mess registrations database
-MESS_DATA_FILE = 'mess_data.json'
-
 # Load data from file at startup
 if os.path.exists(MESS_DATA_FILE):
     with open(MESS_DATA_FILE, 'r') as f:
         registrations = json.load(f)
 else:
     registrations = {}
-
-# history database
-HISTORY_FILE = 'history_data.json'
 
 # login
 @app.route('/login', methods=['POST'])
