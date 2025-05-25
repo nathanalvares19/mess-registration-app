@@ -219,10 +219,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 // logout handler
 document.querySelector(".logout").addEventListener("click", () => {
   alert("User successfully logged out");
-  window.location.href = "index.html";
+  window.location.href = "/index.html";
 });
 
 // history button
 document.querySelector(".history-container").addEventListener("click", () => {
-  window.location.href = "student/history.html";
+  window.location.href = "/student/history.html";
 });
