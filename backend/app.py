@@ -5,14 +5,15 @@ import json
 import os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'
+# app.secret_key = 'your_secret_key_here'
 
 # CORS(app)
 app.config['SESSION_COOKIE_SAMESITE'] = "None"
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
-CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
+# CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
+CORS(app, supports_credentials=True)
 
 # USERS + MESS_DATA + HISTORY files
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
