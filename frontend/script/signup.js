@@ -1,5 +1,6 @@
 // log in redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
+  console.log("Hello motherfucker");
   window.location.href = "index.html";
 });
 
