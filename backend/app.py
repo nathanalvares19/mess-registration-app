@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, session
 from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo  # Requires Python 3.9+
 from flask_cors import CORS
 import json
 import os
@@ -92,7 +93,9 @@ def register_mess():
             json.dump(registrations, f)
 
     # Save to history
-    timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    # timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    timestamp = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d-%m-%Y %H:%M:%S")
+
     history_entry = {
         "email": session["user"],
         "mess": mess,
