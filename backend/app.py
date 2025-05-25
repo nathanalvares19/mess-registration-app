@@ -5,7 +5,7 @@ import json
 import os
 
 app = Flask(__name__)
-# app.secret_key = 'your_secret_key_here'
+app.secret_key = 'your_secret_key_here'
 
 # CORS(app)
 app.config['SESSION_COOKIE_SAMESITE'] = "None"
