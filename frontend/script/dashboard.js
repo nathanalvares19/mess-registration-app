@@ -224,5 +224,5 @@ document.querySelector(".logout").addEventListener("click", () => {
 
 // history button
 document.querySelector(".history-container").addEventListener("click", () => {
-  window.location.href = "./history.html";
+  window.location.href = "./student/history.html";
 });

@@ -1,6 +1,6 @@
 // create account redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
-  window.location.href = "./signup.html";
+  window.location.href = "./student/signup.html";
 });
 
 // form submission handler
@@ -30,7 +30,7 @@ document
 
       if (response.ok) {
         alert(result.message); // Successful login
-        window.location.href = "./dashboard.html"; // Redirect to dashboard (change if needed)
+        window.location.href = "./student/dashboard.html"; // Redirect to dashboard (change if needed)
       } else {
         alert(result.message); // Show error message
       }
