@@ -1,6 +1,5 @@
 // log in redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
-  console.log("Hello motherfucker");
   window.location.href = "index.html";
 });
 
@@ -20,6 +19,12 @@ document
     }
 
     const password = document.getElementById("password").value;
+    const repassword = document.getElementById("reenter-password").value;
+
+    if (password !== repassword) {
+      alert("Passwords do not match");
+      window.location.reload(); // Reload to reset form and stay on same page
+    }
 
     try {
       const response = await fetch(
