@@ -28,5 +28,5 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 // back button
 document.querySelector(".back-button").addEventListener("click", () => {
-  window.location.href = "./student/dashboard.html";
+  window.location.href = "/student/dashboard.html";
 });

@@ -1,6 +1,6 @@
 // log in redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
-  window.location.href = "./index.html";
+  window.location.href = "index.html";
 });
 
 // form submission handler
@@ -37,10 +37,10 @@ document
 
       if (response.ok) {
         alert(result.message); // Successful signup
-        window.location.href = "./index.html"; // Redirect to login
+        window.location.href = "index.html"; // Redirect to login
       } else {
-        alert(result.message); // Show error message
-        window.location.href = "./index.html";
+        alert(result.message); // Show error message - account already exists
+        window.location.href = "index.html"; // Redirect to login
       }
     } catch (error) {
       alert("Error connecting to server");
