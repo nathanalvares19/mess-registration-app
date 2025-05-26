@@ -47,27 +47,6 @@ class RegistrationHistory(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(50), nullable=False)    
 
-# USERS + MESS_DATA + HISTORY files
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-USERS_FILE = os.path.join(BASE_DIR, 'users.json')
-MESS_DATA_FILE = os.path.join(BASE_DIR, 'mess_data.json')
-HISTORY_FILE = os.path.join(BASE_DIR, 'history_data.json')
-
-# Load users from file at startup
-if os.path.exists(USERS_FILE):
-    with open(USERS_FILE, 'r') as f:
-        users = json.load(f)
-else:
-    users = {}
-
-# Load data from file at startup
-if os.path.exists(MESS_DATA_FILE):
-    with open(MESS_DATA_FILE, 'r') as f:
-        registrations = json.load(f)
-else:
-    registrations = {}
-
-
 # decorator to protect routes (replace session checks)
 def token_required(f):
     @wraps(f)
