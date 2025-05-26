@@ -1,5 +1,6 @@
 const token = localStorage.getItem("jwtToken");
-console.log(`hello, token: ${token}`);
+console.log(`JWT Token: ${token}`);
+console.log(localStorage);
 
 // log in redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
@@ -53,6 +54,5 @@ document
       }
     } catch (error) {
       alert("Error connecting to server");
-      console.error(error);
     }
   });
