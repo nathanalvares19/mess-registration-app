@@ -11,21 +11,19 @@ fetch("https://mess-registration-app-backend.onrender.com/current-user", {
     return response.json();
   })
   .then((data) => {
-    email = "";
-    console.log("Logged in user email:", data.email);
     email = data.email;
+    console.log("Logged in user email:", email);
     document.querySelector(".email").textContent = email;
-    document.addEventListener("DOMContentLoaded", () => {
-      const isRegistered = localStorage.getItem(`isRegistered:${email}`);
 
-      if (isRegistered === "true") {
-        disableRegisterButton();
-        enableUnregisterButton();
-      } else {
-        enableRegisterButton();
-        disableUnregisterButton();
-      }
-    });
+    const isRegistered = localStorage.getItem(`isRegistered:${email}`);
+
+    if (isRegistered === "true") {
+      disableRegisterButton();
+      enableUnregisterButton();
+    } else {
+      enableRegisterButton();
+      disableUnregisterButton();
+    }
   })
   .catch((error) => {
     console.error(error);
