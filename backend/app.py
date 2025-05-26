@@ -6,6 +6,7 @@ import json
 import os
 import jwt
 from functools import wraps
+from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
@@ -17,6 +18,32 @@ JWT_EXP_DELTA_SECONDS = 1 * 60 * 60  # 1 hour
 
 CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
 
+# database
+# SQLite config
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mess_app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+
+class MessRegistration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    mess_choice = db.Column(db.String(50), nullable=False)
+    plan_choice = db.Column(db.String(50), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+class RegistrationHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    mess_choice = db.Column(db.String(50), nullable=False)
+    plan_choice = db.Column(db.String(50), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.String(50), nullable=False)    
 
 # USERS + MESS_DATA + HISTORY files
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -74,7 +101,9 @@ def login():
     email = data.get('email')
     password = data.get('password')
 
-    if email in users and users[email] == password:
+    user = User.query.filter_by(email=email).first()
+    if user and user.password == password:
+        # proceed with JWT token generation
         payload = {
             'email': email,
             'exp': datetime.utcnow() + timedelta(seconds=JWT_EXP_DELTA_SECONDS)
@@ -85,7 +114,6 @@ def login():
     else:
         return jsonify({'error': 'Invalid email or password'}), 401
 
-
 # sign up
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -95,14 +123,15 @@ def signup():
 
     # add registration to users database
     # check if account exists
-    if email in users:
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
         return jsonify({'message': 'Account already exists'}), 409
-    else:
-        users[email] = password
-        # Save updated users to file
-        with open(USERS_FILE, 'w') as f:
-            json.dump(users, f)
-        return jsonify({'message': 'Sign up successful'}), 200
+
+    new_user = User(email=email, password=password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({'message': 'Sign up successful'}), 200
+
 
 # mess registration
 @app.route('/register-mess', methods=['POST'])
@@ -115,35 +144,28 @@ def register_mess(current_user):
     if not mess or not plan:
         return jsonify({'message': 'Missing mess or plan selection'}), 400
 
-    registrations[current_user] = {
-        'mess': mess,
-        'plan': plan
-    }
+    existing_registration = MessRegistration.query.filter_by(email=current_user).first()
 
-    # Save updated mess registrations
-    with open(MESS_DATA_FILE, 'w') as f:
-        json.dump(registrations, f)
+    if existing_registration:
+        existing_registration.mess_choice = mess
+        existing_registration.plan_choice = plan
+        existing_registration.timestamp = datetime.utcnow()
+    else:
+        new_registration = MessRegistration(email=current_user, mess_choice=mess, plan_choice=plan)
+        db.session.add(new_registration)
+
+    db.session.commit()
 
     # Save to history
-    timestamp = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d-%m-%Y %H:%M:%S")
-    history_entry = {
-        "email": current_user,
-        "mess": mess,
-        "plan": plan,
-        "timestamp": timestamp,
-        "status": "registered"
-    }
-
-    if os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, "r") as f:
-            history_data = json.load(f)
-    else:
-        history_data = []
-
-    history_data.append(history_entry)
-
-    with open(HISTORY_FILE, "w") as f:
-        json.dump(history_data, f, indent=2)
+    new_history = RegistrationHistory(
+        email=current_user,
+        mess_choice=mess,
+        plan_choice=plan,
+        timestamp=datetime.now(ZoneInfo("Asia/Kolkata")),
+        status="registered"
+    )
+    db.session.add(new_history)
+    db.session.commit()
 
     return jsonify({'message': 'Mess registration successful'})
 
@@ -157,69 +179,54 @@ def current_user_route(current_user):
 @app.route('/mess_data', methods=['GET'])
 @token_required
 def get_mess_data(current_user):
-    if os.path.exists(MESS_DATA_FILE):
-        with open(MESS_DATA_FILE, 'r') as f:
-            data = json.load(f)
-            if current_user in data:
-                return jsonify(data[current_user])
-            else:
-                return jsonify({"error": "User not registered"}), 404
+    registration = MessRegistration.query.filter_by(email=current_user).first()
+    if registration:
+        return jsonify({
+            'mess': registration.mess_choice,
+            'plan': registration.plan_choice
+        })
     else:
-        return jsonify({"error": "File not found"}), 404
+        return jsonify({"error": "User not registered"}), 404
 
 @app.route('/unregister-user', methods=['GET'])
 @token_required
 def unregister_user(current_user):
-    if os.path.exists(MESS_DATA_FILE):
-        with open(MESS_DATA_FILE, 'r') as f:
-            data = json.load(f)
+    registration = MessRegistration.query.filter_by(email=current_user).first()
 
-        if current_user in data:
-            del data[current_user]  # Remove the user data
+    if registration:
+        db.session.delete(registration)
+        db.session.commit()
 
-            # Save the updated file
-            with open(MESS_DATA_FILE, 'w') as f:
-                json.dump(data, f)
+        # Add to history
+        new_history = RegistrationHistory(
+            email=current_user,
+            mess_choice="-",
+            plan_choice="-",
+            timestamp=datetime.now(ZoneInfo("Asia/Kolkata")),
+            status="unregistered"
+        )
+        db.session.add(new_history)
+        db.session.commit()
 
-            # Save to history
-            timestamp = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d-%m-%Y %H:%M:%S")
-            history_entry = {
-                "email": current_user,
-                "mess": "-",
-                "plan": "-",
-                "timestamp": timestamp,
-                "status": "unregistered"
-            }
-
-            if os.path.exists(HISTORY_FILE):
-                with open(HISTORY_FILE, "r") as f:
-                    history_data = json.load(f)
-            else:
-                history_data = []
-
-            history_data.append(history_entry)
-
-            with open(HISTORY_FILE, "w") as f:
-                json.dump(history_data, f, indent=2)
-
-            return jsonify({"message": "User unregistered successfully"}), 200
-        else:
-            return jsonify({"error": "User not registered"}), 404
+        return jsonify({"message": "User unregistered successfully"}), 200
     else:
-        return jsonify({"error": "File not found"}), 404
+        return jsonify({"error": "User not registered"}), 404
 
 # history 
 @app.route('/get-history', methods=['GET'])
 @token_required
 def get_history(current_user):
-    if os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, "r") as f:
-            history_data = json.load(f)
-            user_history = [entry for entry in history_data if entry["email"] == current_user]
-            user_history.sort(key=lambda x: x["timestamp"], reverse=True)  # Latest first
-            return jsonify(user_history)
-
-    return jsonify([])
+    history_data = RegistrationHistory.query.filter_by(email=current_user).order_by(RegistrationHistory.timestamp.desc()).all()
+    user_history = []
+    for entry in history_data:
+        user_history.append({
+            "email": entry.email,
+            "mess": entry.mess_choice,
+            "plan": entry.plan_choice,
+            "timestamp": entry.timestamp.strftime("%d-%m-%Y %H:%M:%S"),
+            "status": entry.status
+        })
+    return jsonify(user_history)
 
 # backend page
 @app.route('/')
