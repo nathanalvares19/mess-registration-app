@@ -65,11 +65,19 @@ You can access the student site here:
 
 ### 🧑‍💼 For Admins
 
-To use the admin dashboard:
+To use the admin dashboard locally:
 
-1. Clone or download this repository  
-2. Host the backend server locally  
-3. Use the local server to access admin functionality (view registrations, download reports, manage plans)
+1. Clone or download this repository.
+2. Start the backend server locally using Flask.
+3. Navigate to the `frontend/frontpage` directory.
+4. Open the `page.html` file in your browser.
+5. Log in with **any made-up username and password** to access the admin dashboard.
+6. Once logged in, you’ll be able to:
+   - View all student registrations  
+   - Download CSV reports  
+   - Manage mess plan options (weekly/monthly)
+
+> Note: This admin interface is currently intended for local use and testing purposes.
 
 ---
 
