@@ -188,8 +188,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.log(errorData);
-      throw new Error("Failed to fetch mess data");
+      throw new Error(errorData);
     }
 
     const result = await response.json();
@@ -207,7 +206,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     ).textContent = `Registered for ${result.mess}: ${result.plan} (${activePeriod})`;
     enableUnregisterButton();
   } catch (error) {
-    console.error(error.message);
+    console.log(error.error);
   }
 });
 
