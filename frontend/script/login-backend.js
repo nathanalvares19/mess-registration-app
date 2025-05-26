@@ -38,15 +38,7 @@ document
           alert("Login succeeded but no token received.");
         }
       }
-
-      // if (response.ok) {
-      //   alert(result.message); // Successful login
-      //   window.location.href = "./student/dashboard.html"; // Redirect to dashboard (change if needed)
-      // } else {
-      //   alert(result.message); // Show error message
-      // }
     } catch (error) {
-      alert("Error connecting to server");
-      console.error(error);
+      alert(error);
     }
   });
