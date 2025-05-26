@@ -14,6 +14,7 @@ document
     event.preventDefault(); // Prevent page reload on form submit
 
     const email = document.getElementById("email").value;
+    localStorage.setItem(`isRegistered:${email}`, "false");
 
     // Email domain check
     if (!email.endsWith("@iith.ac.in")) {

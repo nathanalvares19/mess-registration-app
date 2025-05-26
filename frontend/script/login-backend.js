@@ -31,7 +31,7 @@ document
       if (response.ok) {
         const token = result.token;
         if (token) {
-          localStorage.setItem("jwtToken", token);
+          localStorage.setItem(`jwtToken:${email}`, token);
           alert(result.message);
           window.location.href = "./student/dashboard.html";
         } else {

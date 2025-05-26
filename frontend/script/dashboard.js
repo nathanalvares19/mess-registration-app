@@ -1,7 +1,6 @@
 const registerButton = document.getElementById("go-to-mess-registration");
 
 const token = localStorage.getItem("jwtToken");
-console.log(token);
 
 // get email of user
 fetch("https://mess-registration-app-backend.onrender.com/current-user", {
@@ -28,7 +27,7 @@ fetch("https://mess-registration-app-backend.onrender.com/current-user", {
     }
   })
   .catch((error) => {
-    console.error(error);
+    console.error(error.message);
   });
 
 // Register click handler
@@ -182,8 +181,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.log(errorData.error);
-      throw new Error(errorData.error || "Failed to fetch mess data");
+      console.log(errorData);
+      throw new Error("Failed to fetch mess data");
     }
 
     const result = await response.json();
@@ -201,8 +200,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     ).textContent = `Registered for ${result.mess}: ${result.plan} (${activePeriod})`;
     enableUnregisterButton();
   } catch (error) {
-    // alert("Error: " + error.message);
-    console.log(error.message);
+    console.error(error.message);
   }
 });
 
