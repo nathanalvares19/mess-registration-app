@@ -37,6 +37,8 @@ document
         } else {
           alert("Login succeeded but no token received.");
         }
+      } else {
+        alert(result.error);
       }
     } catch (error) {
       alert(error);
