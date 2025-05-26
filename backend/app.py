@@ -16,7 +16,7 @@ JWT_SECRET = app.secret_key
 JWT_ALGORITHM = "HS256"
 JWT_EXP_DELTA_SECONDS = 1 * 60 * 60  # 1 hour
 
-CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
+CORS(app, supports_credentials=True, origins=lambda origin: True)
 
 # database
 # SQLite config
