@@ -72,7 +72,6 @@ fetch("https://mess-registration-app-backend.onrender.com/current-user", {
   });
 
 // unregister
-
 const unregisterDiv = document.querySelector(".unregister-button");
 
 function unregisterHandler() {
