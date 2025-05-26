@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "https://mess-registration-app-backend.onrender.com/register-mess",
           {
             method: "POST",
-            credentials: "include",
+            Authorization: `Bearer ${token}`,
             headers: {
               "Content-Type": "application/json",
             },

@@ -3,7 +3,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const response = await fetch(
       "https://mess-registration-app-backend.onrender.com/get-history",
       {
-        credentials: "include",
+        Authorization: `Bearer ${token}`,
       }
     );
     const data = await response.json();

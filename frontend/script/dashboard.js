@@ -4,7 +4,7 @@ const registerButton = document.getElementById("go-to-mess-registration");
 
 fetch("https://mess-registration-app-backend.onrender.com/current-user", {
   method: "GET",
-  credentials: "include", // important to send cookies/session info
+  Authorization: `Bearer ${token}`,
 })
   .then((response) => {
     if (!response.ok) throw new Error("Not logged in");
@@ -76,7 +76,7 @@ const unregisterDiv = document.querySelector(".unregister-button");
 function unregisterHandler() {
   fetch("https://mess-registration-app-backend.onrender.com/unregister-user", {
     method: "GET",
-    credentials: "include",
+    Authorization: `Bearer ${token}`,
   })
     .then((response) => {
       const data = response.json();
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const response = await fetch(
       "https://mess-registration-app-backend.onrender.com/mess_data",
       {
-        credentials: "include",
+        Authorization: `Bearer ${token}`,
       }
     );
 
@@ -219,6 +219,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 // logout handler
 document.querySelector(".logout").addEventListener("click", () => {
   alert("User successfully logged out");
+  localStorage.removeItem("jwtToken");
   window.location.href = "/index.html";
 });
 
