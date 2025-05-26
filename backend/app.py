@@ -161,7 +161,9 @@ def unregister_user():
                 json.dump(data, f)
 
             # Save to history
-            timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+            # timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+            timestamp = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d-%m-%Y %H:%M:%S")
+
             history_entry = {
                 "email": email,
                 "mess": "-",
