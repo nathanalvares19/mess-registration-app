@@ -13,8 +13,8 @@ app.config['SESSION_COOKIE_SAMESITE'] = "None"
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
 
-CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
-# CORS(app, supports_credentials=True)
+# CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
+CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5500/frontend/"])
 
 # USERS + MESS_DATA + HISTORY files
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
