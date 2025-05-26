@@ -16,7 +16,9 @@ JWT_SECRET = app.secret_key
 JWT_ALGORITHM = "HS256"
 JWT_EXP_DELTA_SECONDS = 1 * 60 * 60  # 1 hour
 
-CORS(app, supports_credentials=True, origins=lambda origin: True)
+# CORS(app, supports_credentials=True, origins=lambda origin: True)
+
+CORS(app)
 
 # database
 # SQLite config
