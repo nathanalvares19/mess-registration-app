@@ -213,6 +213,7 @@ document.querySelector(".logout").addEventListener("click", () => {
   alert("User successfully logged out");
   localStorage.removeItem(`jwtToken:${email}`);
   localStorage.removeItem(`Current_User`);
+  localStorage.removeItem(`isRegistered:${email}`);
   window.location.href = "/index.html";
 });
 
