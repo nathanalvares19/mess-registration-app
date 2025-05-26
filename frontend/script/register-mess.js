@@ -1,4 +1,4 @@
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("jwtToken");
 
 document.addEventListener("DOMContentLoaded", function () {
   // Set current date with format like "20th May 2025"
