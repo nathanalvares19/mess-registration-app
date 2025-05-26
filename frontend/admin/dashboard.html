@@ -5,16 +5,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Dashboard</title>
-  <!-- Make sure this points to your admin.css -->
-  <link rel="stylesheet" href="admin.css" />
+
+  <!-- dashboard styles -->
+  <link rel="stylesheet" href="style/admin-dashboard.css" />
 </head>
 <body>
   <header class="dashboard-header">
-    <h1>Mess Registration Dashboard</h1>
+    <div class="header-left">
+      <img src="./images/iith-logo-removebg-preview.png"
+           alt="IITH Logo"
+           class="iith-logo" />
+      <div class="header-title">
+        <h1>Mess Registration Dashboard</h1>
+        <span class="sub-title">Indian Institute of Technology Hyderabad</span>
+      </div>
+    </div>
+
     <div class="controls">
-      <button id="download-report">Download CSV</button>
-      <a href="change-plans.html" class="button">Change Plans</a>
-      <button id="logout-btn">Logout</button>
+      <button id="download-report" type="button">Download CSV</button>
+      <button id="change-plans"    type="button">Change plans</button>
+      <button id="logout-btn"      type="button">Logout</button>
     </div>
   </header>
 
@@ -22,13 +32,12 @@
     <section class="registrations-section">
       <h2>Registered Students</h2>
 
-      <!-- ← wrap your table in this container for styling & horizontal scroll -->
       <div class="table-container">
         <table id="registrations-table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Roll No.</th>
+              <th>Email</th>
+              <th>Mess</th>
               <th>Mess Plan</th>
               <th>Registered On</th>
             </tr>
@@ -45,7 +54,7 @@
     </section>
   </main>
 
-  <!-- your admin logic -->
-  <script src="../script/admin.js"></script>
+  <!-- admin logic -->
+  <script src="./script/admin.js" defer></script>
 </body>
 </html>
