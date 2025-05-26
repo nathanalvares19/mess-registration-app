@@ -1,7 +1,26 @@
 const registerButton = document.getElementById("go-to-mess-registration");
 
+// get email of user
+email = "";
+fetch("https://mess-registration-app-backend.onrender.com/current-user", {
+  method: "GET",
+  credentials: "include", // important to send cookies/session info
+})
+  .then((response) => {
+    if (!response.ok) throw new Error("Not logged in");
+    return response.json();
+  })
+  .then((data) => {
+    console.log("Logged in user email:", data.email);
+    email = data.email;
+    document.querySelector(".email").textContent = email;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
 document.addEventListener("DOMContentLoaded", () => {
-  const isRegistered = localStorage.getItem("isRegistered");
+  const isRegistered = localStorage.getItem(`isRegistered:${email}`);
 
   if (isRegistered === "true") {
     disableRegisterButton();
@@ -17,7 +36,8 @@ function registerHandler() {
   window.location.href = "register-mess.html";
 
   // Save state to localStorage
-  localStorage.setItem("isRegistered", "true");
+
+  localStorage.setItem(`isRegistered:${email}`, "true");
 
   disableRegisterButton();
   enableUnregisterButton();
@@ -51,25 +71,6 @@ registerButton.addEventListener("click", registerHandler);
 
 // status update
 const status = document.querySelector(".status");
-email = "";
-
-// get email of user
-fetch("https://mess-registration-app-backend.onrender.com/current-user", {
-  method: "GET",
-  credentials: "include", // important to send cookies/session info
-})
-  .then((response) => {
-    if (!response.ok) throw new Error("Not logged in");
-    return response.json();
-  })
-  .then((data) => {
-    console.log("Logged in user email:", data.email);
-    email = data.email;
-    document.querySelector(".email").textContent = email;
-  })
-  .catch((error) => {
-    console.error(error);
-  });
 
 // unregister
 const unregisterDiv = document.querySelector(".unregister-button");
@@ -80,8 +81,9 @@ function unregisterHandler() {
     credentials: "include",
   })
     .then((response) => {
-      if (!response.ok) throw new Error("Not logged in");
-      return response.json();
+      const data = response.json();
+      if (!response.ok) throw new Error(data.error);
+      return data;
     })
     .then((data) => {
       document.querySelector(".status").textContent = `Not registered`;
