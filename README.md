@@ -82,3 +82,4 @@ To use the admin dashboard locally:
 
 ---
 
+**📘 Project made for Lambda Dev Core Selections – Summer 2025**
