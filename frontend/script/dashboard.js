@@ -5,7 +5,9 @@ const token = localStorage.getItem("jwtToken");
 // get email of user
 fetch("https://mess-registration-app-backend.onrender.com/current-user", {
   method: "GET",
-  Authorization: `Bearer ${token}`,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
 })
   .then((response) => {
     if (!response.ok) throw new Error("Not logged in");
@@ -69,7 +71,9 @@ const unregisterDiv = document.querySelector(".unregister-button");
 function unregisterHandler() {
   fetch("https://mess-registration-app-backend.onrender.com/unregister-user", {
     method: "GET",
-    Authorization: `Bearer ${token}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   })
     .then((response) => {
       const data = response.json();
@@ -175,7 +179,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const response = await fetch(
       "https://mess-registration-app-backend.onrender.com/mess_data",
       {
-        Authorization: `Bearer ${token}`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
