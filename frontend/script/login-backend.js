@@ -39,6 +39,6 @@ document
         }
       }
     } catch (error) {
-      alert(error);
+      alert(error["error"]);
     }
   });

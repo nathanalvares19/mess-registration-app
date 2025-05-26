@@ -89,7 +89,7 @@ def login():
 
         return jsonify({'message': 'Login successful', 'token': token}), 200
     else:
-        return jsonify({'message': 'Invalid email or password'}), 401
+        return jsonify({'error': 'Invalid email or password'}), 401
 
 
 # sign up
