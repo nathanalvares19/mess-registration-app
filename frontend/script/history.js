@@ -1,3 +1,5 @@
+const token = localStorage.getItem("token");
+
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     const response = await fetch(

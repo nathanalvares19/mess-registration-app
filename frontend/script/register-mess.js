@@ -1,3 +1,5 @@
+const token = localStorage.getItem("token");
+
 document.addEventListener("DOMContentLoaded", function () {
   // Set current date with format like "20th May 2025"
   const currentDate = new Date();

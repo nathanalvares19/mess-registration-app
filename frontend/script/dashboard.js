@@ -1,7 +1,8 @@
 const registerButton = document.getElementById("go-to-mess-registration");
 
-// get email of user
+const token = localStorage.getItem("token");
 
+// get email of user
 fetch("https://mess-registration-app-backend.onrender.com/current-user", {
   method: "GET",
   Authorization: `Bearer ${token}`,

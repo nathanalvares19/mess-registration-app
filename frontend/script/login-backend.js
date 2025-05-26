@@ -1,3 +1,5 @@
+const token = localStorage.getItem("token");
+
 // create account redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
   window.location.href = "./student/signup.html";

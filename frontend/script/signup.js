@@ -1,3 +1,5 @@
+const token = localStorage.getItem("token");
+
 // log in redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
   window.location.href = "/index.html";
