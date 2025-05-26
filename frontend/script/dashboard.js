@@ -86,7 +86,7 @@ function unregisterHandler() {
 
       disableUnregisterButton(); // Disable unregister
       enableRegisterButton(); // Enable register
-      console.log("Button shit done");
+      console.log("User unregistered");
 
       // set registration state
       localStorage.setItem(`isRegistered:${email}`, "false");
