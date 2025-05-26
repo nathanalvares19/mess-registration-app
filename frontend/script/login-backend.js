@@ -20,7 +20,7 @@ document
         {
           // Your Flask backend URL
           method: "POST",
-          credentials: "include",
+          Authorization: `Bearer ${token}`,
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }), // Send as JSON
         }
