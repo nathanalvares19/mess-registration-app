@@ -15,12 +15,6 @@ JWT_SECRET = app.secret_key
 JWT_ALGORITHM = "HS256"
 JWT_EXP_DELTA_SECONDS = 7 * 24 * 60 * 60  # 7 days
 
-
-# CORS(app)
-app.config['SESSION_COOKIE_SAMESITE'] = "None"
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
-
 CORS(app, supports_credentials=True, origins=["https://mess-registration-app-neon.vercel.app"])
 
 
@@ -153,71 +147,11 @@ def register_mess(current_user):
 
     return jsonify({'message': 'Mess registration successful'})
 
-# @app.route('/register-mess', methods=['POST'])
-# @token_required
-# def register_mess(current_user):
-#     if 'user' not in session:
-#         return jsonify({'message': 'Unauthorized'}), 401
-
-#     data = request.json
-#     mess = data.get('mess')
-#     plan = data.get('plan')
-
-#     if not mess or not plan:
-#         return jsonify({'message': 'Missing mess or plan selection'}), 400
-
-#     else:
-#         user_email = session['user']
-
-#         registrations[user_email] = {
-#             'mess': mess,
-#             'plan': plan
-#         }
-
-#         # Save updated users to file
-#         with open(MESS_DATA_FILE, 'w') as f:
-#             json.dump(registrations, f)
-
-#     # Save to history
-#     # timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-#     timestamp = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d-%m-%Y %H:%M:%S")
-
-#     history_entry = {
-#         "email": current_user,
-#         "mess": mess,
-#         "plan": plan,
-#         "timestamp": timestamp,
-#         "status": "registered"
-#     }
-
-#     if os.path.exists(HISTORY_FILE):
-#         with open(HISTORY_FILE, "r") as f:
-#             history_data = json.load(f)
-#     else:
-#         history_data = []
-
-#     history_data.append(history_entry)
-
-#     with open(HISTORY_FILE, "w") as f:
-#         json.dump(history_data, f, indent=2)
-
-#         # print(f"Registered {user_email} for mess {mess} with plan {plan}")
-
-#     return jsonify({'message': 'Mess registration successful'})
-
 # get email of current user
 @app.route('/current-user', methods=['GET'])
 @token_required
 def current_user_route(current_user):
     return jsonify({'email': current_user}), 200
-
-# @app.route('/current-user', methods=['GET'])
-# @token_required
-# def current_user(current_user):
-#     if 'user' in session:
-#         return jsonify({'email': session['user']}), 200
-#     else:
-#         return jsonify({'email': None}), 401
 
 # get mess data of current user
 @app.route('/mess_data', methods=['GET'])
@@ -233,22 +167,6 @@ def get_mess_data(current_user):
     else:
         return jsonify({"error": "File not found"}), 404
 
-# @app.route('/mess_data', methods=['GET'])
-# @token_required
-# def get_mess_data(current_user):
-#     email = session['user']
-#     if os.path.exists(MESS_DATA_FILE):
-#         with open(MESS_DATA_FILE, 'r') as f:
-#             data = json.load(f)
-#             if email in data:
-#                 return jsonify(data[email])
-#             else:
-#                 return jsonify({"error": "User not registered"}), 404
-
-#     else:
-#         return jsonify({"error": "File not found"}), 404
-
-# unregister user
 @app.route('/unregister-user', methods=['GET'])
 @token_required
 def unregister_user(current_user):
@@ -290,55 +208,6 @@ def unregister_user(current_user):
     else:
         return jsonify({"error": "File not found"}), 404
 
-# @app.route('/unregister-user', methods=['GET'])
-# @token_required
-# def unregister_user(current_user):
-#     email = session.get('user')
-#     if not email:
-#         return jsonify({"error": "Unauthorized"}), 401
-
-#     if os.path.exists(MESS_DATA_FILE):
-#         with open(MESS_DATA_FILE, 'r') as f:
-#             data = json.load(f)
-
-#         if email in data:
-#             del data[email]  # Remove the user data
-
-#             # Save the updated file
-#             with open(MESS_DATA_FILE, 'w') as f:
-#                 json.dump(data, f)
-
-#             # Save to history
-#             # timestamp = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-#             timestamp = datetime.now(ZoneInfo("Asia/Kolkata")).strftime("%d-%m-%Y %H:%M:%S")
-
-#             history_entry = {
-#                 "email": email,
-#                 "mess": "-",
-#                 "plan": "-",
-#                 "timestamp": timestamp,
-#                 "status": "unregistered"
-#             }
-
-#             if os.path.exists(HISTORY_FILE):
-#                 with open(HISTORY_FILE, "r") as f:
-#                     history_data = json.load(f)
-#             else:
-#                 history_data = []
-
-#             history_data.append(history_entry)
-
-#             with open(HISTORY_FILE, "w") as f:
-#                 json.dump(history_data, f, indent=2)
-
-#             return jsonify({"message": "User unregistered successfully"}), 200
-#         else:
-#             return jsonify({"error": "User not registered"}), 404
-#     else:
-#         return jsonify({"error": "File not found"}), 404
-
-
-
 # history 
 @app.route('/get-history', methods=['GET'])
 @token_required
@@ -352,23 +221,6 @@ def get_history(current_user):
 
     return jsonify([])
 
-# @app.route('/get-history', methods=['GET'])
-# @token_required
-# def get_history(current_user):
-#     email = session.get('user')
-#     if not email:
-#         return jsonify([])
-
-#     if os.path.exists(HISTORY_FILE):
-#         with open(HISTORY_FILE, "r") as f:
-#             history_data = json.load(f)
-#             user_history = [entry for entry in history_data if entry["email"] == email]
-#             user_history.sort(key=lambda x: x["timestamp"], reverse=True)  # Latest first
-#             return jsonify(user_history)
-
-#     return jsonify([])
-
-
 # backend page
 @app.route('/')
 def index():
@@ -376,6 +228,4 @@ def index():
 
 
 if __name__ == '__main__':
-    # port = int(os.environ.get("PORT", 5000))
-    # app.run(host="0.0.0.0", port=port)
     app.run()

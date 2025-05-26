@@ -1,6 +1,7 @@
 const registerButton = document.getElementById("go-to-mess-registration");
 
 const token = localStorage.getItem("jwtToken");
+console.log(token);
 
 // get email of user
 fetch("https://mess-registration-app-backend.onrender.com/current-user", {
@@ -35,7 +36,6 @@ function registerHandler() {
   window.location.href = "register-mess.html";
 
   // Save state to localStorage
-
   localStorage.setItem(`isRegistered:${email}`, "true");
 
   disableRegisterButton();
@@ -60,13 +60,6 @@ function enableRegisterButton() {
 
 // Attach the register click handler initially
 registerButton.addEventListener("click", registerHandler);
-
-// // registration redirect
-// registerButton
-//   .getElementById("go-to-mess-registration")
-//   .addEventListener("click", () => {
-//     window.location.href = "register-mess.html"; // Adjust if needed
-//   });
 
 // status update
 const status = document.querySelector(".status");
@@ -159,10 +152,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   const suffix = getOrdinalSuffix(day);
-
-  // document.getElementById(
-  //   "current-date"
-  // ).textContent = `${day}${suffix} ${month} ${year}`;
 
   // Calculate and display active week
   const startDate = new Date(currentDate);
