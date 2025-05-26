@@ -1,7 +1,7 @@
 const registerButton = document.getElementById("go-to-mess-registration");
 
 // get email of user
-email = "";
+
 fetch("https://mess-registration-app-backend.onrender.com/current-user", {
   method: "GET",
   credentials: "include", // important to send cookies/session info
@@ -11,25 +11,25 @@ fetch("https://mess-registration-app-backend.onrender.com/current-user", {
     return response.json();
   })
   .then((data) => {
+    email = "";
     console.log("Logged in user email:", data.email);
     email = data.email;
     document.querySelector(".email").textContent = email;
+    document.addEventListener("DOMContentLoaded", () => {
+      const isRegistered = localStorage.getItem(`isRegistered:${email}`);
+
+      if (isRegistered === "true") {
+        disableRegisterButton();
+        enableUnregisterButton();
+      } else {
+        enableRegisterButton();
+        disableUnregisterButton();
+      }
+    });
   })
   .catch((error) => {
     console.error(error);
   });
-
-document.addEventListener("DOMContentLoaded", () => {
-  const isRegistered = localStorage.getItem(`isRegistered:${email}`);
-
-  if (isRegistered === "true") {
-    disableRegisterButton();
-    enableUnregisterButton();
-  } else {
-    enableRegisterButton();
-    disableUnregisterButton();
-  }
-});
 
 // Register click handler
 function registerHandler() {
@@ -91,6 +91,7 @@ function unregisterHandler() {
 
       disableUnregisterButton(); // Disable unregister
       enableRegisterButton(); // Enable register
+      console.log("Button shit done");
 
       // set registration state
       localStorage.setItem(`isRegistered:${email}`, "false");
