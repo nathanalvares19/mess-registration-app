@@ -14,9 +14,8 @@ fetch("https://mess-registration-app-backend.onrender.com/current-user", {
     return response.json();
   })
   .then((data) => {
-    email = data.email;
-    console.log("Logged in user email:", email);
-    document.querySelector(".email").textContent = email;
+    console.log("Logged in user email:", data.email);
+    document.querySelector(".email").textContent = data.email;
 
     const isRegistered = localStorage.getItem(`isRegistered:${email}`);
 
