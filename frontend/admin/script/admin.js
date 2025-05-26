@@ -2,17 +2,18 @@
 console.log("admin.js loaded");
 
 const API_BASE =
-  window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-    ? "http://127.0.0.1:5050"    // 👈 exact host + port where Flask runs
-    : "https://mess-registration-api.fly.dev";   // <- prod URL
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:5050" // 👈 exact host + port where Flask runs
+    : "https://mess-registration-api.fly.dev"; // <- prod URL
 
-const tbody    = document.querySelector("#registrations-table tbody");
+const tbody = document.querySelector("#registrations-table tbody");
 const noDataEl = document.getElementById("no-data");
 
 async function loadRegistrations() {
   try {
     const res = await fetch(`${API_BASE}/api/registrations`, {
-      credentials: "include"
+      credentials: "include",
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const list = await res.json();
@@ -23,12 +24,12 @@ async function loadRegistrations() {
       return;
     }
 
-    list.forEach(rec => {
+    list.forEach((rec) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${rec.email ?? "-"}</td>
-        <td>${rec.mess  ?? "-"}</td>
-        <td>${rec.plan  ?? "-"}</td>
+        <td>${rec.mess ?? "-"}</td>
+        <td>${rec.plan ?? "-"}</td>
         <td>${new Date(rec.registeredOn ?? Date.now()).toLocaleString()}</td>
       `;
       tbody.appendChild(tr);
@@ -42,15 +43,17 @@ async function loadRegistrations() {
 
 function downloadCSV() {
   const rows = [["Email", "Mess", "Plan", "Registered On"]];
-  tbody.querySelectorAll("tr").forEach(tr => {
-    rows.push(Array.from(tr.children).map(td => `"${td.textContent.trim()}"`));
+  tbody.querySelectorAll("tr").forEach((tr) => {
+    rows.push(
+      Array.from(tr.children).map((td) => `"${td.textContent.trim()}"`)
+    );
   });
-  const csv = rows.map(r => r.join(",")).join("\n");
+  const csv = rows.map((r) => r.join(",")).join("\n");
   const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-  const url  = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
   const a = Object.assign(document.createElement("a"), {
     href: url,
-    download: "Registrations.csv"
+    download: "Registrations.csv",
   });
   document.body.appendChild(a);
   a.click();
@@ -58,7 +61,9 @@ function downloadCSV() {
   URL.revokeObjectURL(url);
 }
 
-document.getElementById("download-report")?.addEventListener("click", downloadCSV);
+document
+  .getElementById("download-report")
+  ?.addEventListener("click", downloadCSV);
 document.getElementById("change-plans")?.addEventListener("click", () => {
   // load relative page, not absolute
   window.location.href = "change-plans.html";
@@ -74,4 +79,3 @@ document.getElementById("change-plans")?.addEventListener("click", () => {
   // “./” forces a link that is relative to /admin/
   window.location.href = "./change-plans.html";
 });
-
