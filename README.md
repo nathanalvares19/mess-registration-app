@@ -8,29 +8,68 @@ A full-stack web application built for IITH students to register/unregister for 
 
 ### 👤 Student Dashboard
 
-- Sign up and log in
-- Choose mess plans (weekly or monthly)
-- View current registration status
-- View registration history
+- Sign up and log in  
+- Choose mess plans (weekly or monthly)  
+- View current registration status  
+- View registration history  
 
 ### 🛠️ Admin Dashboard
 
-- View all student registrations
-- Download CSV reports
-- Manage mess plan options 
+- View all student registrations  
+- Download CSV reports  
+- Manage mess plan options  
 
-### 🧠 Tech Stack
-
-| Part     | Tech Used                                         |
-| -------- | ------------------------------------------------- |
-| Frontend | HTML, CSS, Vanilla JS                             |
-| Backend  | Python + Flask                                    |
-| Database | SQLite (can be extended to MongoDB)               |
-| Auth     | Basic session/auth logic (can be extended to JWT) |
-| Hosting  | Vercel(frontend) + Render(backend)           |
-
-### 🕒 Coming Soon 
-- Password Hashing
-- Responsive Web Design
-- Other Security Measures
 ---
+
+## 🧠 Tech Stack
+
+| Part     | Tech Used                        |
+| -------- | -------------------------------- |
+| Frontend | HTML, CSS, Vanilla JS            |
+| Backend  | Python + Flask                   |
+| Database | SQLite                           |
+| Auth     | JWT-based authentication logic   |
+| Hosting  | Vercel (frontend) + Render (backend) |
+
+---
+
+## 🕒 Coming Soon
+
+- Password hashing  
+- Responsive web design  
+- Additional security measures  
+
+---
+
+## 🚀 How to Use This Service
+
+### 🙋‍♂️ For Students
+
+You can access the student site here:  
+👉 **[https://mess-registration-app-neon.vercel.app/](https://mess-registration-app-neon.vercel.app/)**
+
+**Steps to use:**
+
+1. Create an account using your `@iith.ac.in` email ID  
+2. Log in using the same credentials  
+3. Once logged in, you can:
+   - Register or unregister for mess plans  
+   - View your current registration status  
+   - See your registration history  
+   - Log out when done  
+
+> ⚠️ **Disclaimer:** The site may take a few seconds to respond — please be patient.  
+> If user authentication fails on the first attempt, try again. It should work properly on retry.
+
+---
+
+### 🧑‍💼 For Admins
+
+To use the admin dashboard:
+
+1. Clone or download this repository  
+2. Host the backend server locally  
+3. Use the local server to access admin functionality (view registrations, download reports, manage plans)
+
+---
+
