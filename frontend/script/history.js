@@ -11,6 +11,12 @@ window.addEventListener("DOMContentLoaded", async () => {
         },
       }
     );
+
+    if (!response.ok) {
+      window.location.href = "/index.html";
+      throw new Error("Not logged in");
+    }
+
     const data = await response.json();
 
     const tbody = document.querySelector("#history-table tbody");
@@ -27,7 +33,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       tbody.appendChild(row);
     });
   } catch (err) {
-    console.error("Failed to load history:", err);
+    console.error(err);
   }
 });
 

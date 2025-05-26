@@ -10,7 +10,10 @@ fetch("https://mess-registration-app-backend.onrender.com/current-user", {
   },
 })
   .then((response) => {
-    if (!response.ok) throw new Error("Not logged in");
+    if (!response.ok) {
+      window.location.href = "/index.html";
+      throw new Error("Not logged in");
+    }
     return response.json();
   })
   .then((data) => {
