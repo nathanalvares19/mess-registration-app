@@ -1,4 +1,5 @@
 const token = localStorage.getItem("jwtToken");
+console.log(token);
 
 // log in redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
