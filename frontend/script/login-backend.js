@@ -32,6 +32,8 @@ document
         const token = result.token;
         if (token) {
           // decoding to get email
+          localStorage.clear();
+          console.log("localStorage has been cleared.");
           const decoded = jwt_decode(token);
           localStorage.setItem("Current_User", decoded.email);
           localStorage.setItem(`jwtToken:${email}`, token);
