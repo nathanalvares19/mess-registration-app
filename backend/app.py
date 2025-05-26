@@ -87,6 +87,7 @@ def token_required(f):
 #     else:
 #         return jsonify({'message': 'Invalid email or password'}), 401
     
+# login
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
