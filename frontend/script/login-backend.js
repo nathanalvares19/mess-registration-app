@@ -1,5 +1,3 @@
-const token = localStorage.getItem("token");
-
 // create account redirect
 document.querySelector(".signup-container").addEventListener("click", () => {
   window.location.href = "./student/signup.html";
@@ -20,7 +18,6 @@ document
         {
           // Your Flask backend URL
           method: "POST",
-          Authorization: `Bearer ${token}`,
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }), // Send as JSON
         }
