@@ -1,4 +1,5 @@
-const token = localStorage.getItem("jwtToken");
+const email = localStorage.getItem(`Current_User`);
+const token = localStorage.getItem(`jwtToken:${email}`);
 
 window.addEventListener("DOMContentLoaded", async () => {
   try {

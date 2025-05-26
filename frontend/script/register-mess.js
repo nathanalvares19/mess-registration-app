@@ -1,4 +1,5 @@
-const token = localStorage.getItem("jwtToken");
+const email = localStorage.getItem(`Current_User`);
+const token = localStorage.getItem(`jwtToken:${email}`);
 
 document.addEventListener("DOMContentLoaded", function () {
   // Set current date with format like "20th May 2025"
@@ -105,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (response.ok) {
           alert(result.message);
-          // sessionStorage.setItem("messType", messType);
-          // sessionStorage.setItem("planType", planType);
+          // Save state to localStorage
+          localStorage.setItem(`isRegistered:${email}`, "true");
           window.location.href = "dashboard.html";
         } else {
           alert("Error: " + result.message);

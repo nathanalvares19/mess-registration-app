@@ -31,6 +31,9 @@ document
       if (response.ok) {
         const token = result.token;
         if (token) {
+          // decoding to get email
+          const decoded = jwt_decode(token);
+          localStorage.setItem("Current_User", decoded.email);
           localStorage.setItem(`jwtToken:${email}`, token);
           alert(result.message);
           window.location.href = "./student/dashboard.html";

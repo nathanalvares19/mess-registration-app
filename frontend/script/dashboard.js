@@ -1,5 +1,5 @@
 const registerButton = document.getElementById("go-to-mess-registration");
-console.log(email);
+const email = localStorage.getItem(`Current_User`);
 const token = localStorage.getItem(`jwtToken:${email}`);
 
 // get email of user
@@ -35,9 +35,6 @@ fetch("https://mess-registration-app-backend.onrender.com/current-user", {
 // Register click handler
 function registerHandler() {
   window.location.href = "register-mess.html";
-
-  // Save state to localStorage
-  localStorage.setItem(`isRegistered:${email}`, "true");
 
   disableRegisterButton();
   enableUnregisterButton();
@@ -187,11 +184,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     );
 
     if (!response.ok) {
+      document.querySelector(".status").textContent = "Not registered";
       const errorData = await response.json();
       throw new Error(errorData);
     }
 
     const result = await response.json();
+    localStorage.setItem(`isRegistered:${email}`, "true");
 
     let activePeriod = "";
 
@@ -213,7 +212,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 // logout handler
 document.querySelector(".logout").addEventListener("click", () => {
   alert("User successfully logged out");
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem(`jwtToken:${email}`);
+  localStorage.removeItem(`Current_User`);
   window.location.href = "/index.html";
 });
 
