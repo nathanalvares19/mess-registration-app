@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     enableUnregisterButton();
   } catch (error) {
     // alert("Error: " + error.message);
-    console.log("Error: " + error.message);
+    console.log(error.message);
   }
 });
 
