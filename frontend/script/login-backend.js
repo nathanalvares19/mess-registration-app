@@ -38,7 +38,7 @@ document
           alert("Login succeeded but no token received.");
         }
       }
-    } catch (result) {
-      alert(result.error);
+    } catch (error) {
+      alert(error);
     }
   });
