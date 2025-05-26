@@ -37,7 +37,8 @@ A full-stack web application built for IITH students to register/unregister for 
 
 - Password hashing  
 - Responsive web design  
-- Additional security measures  
+- Additional security measures
+- Admin Site hosting
 
 ---
 
