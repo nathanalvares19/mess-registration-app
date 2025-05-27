@@ -79,7 +79,7 @@ To use the admin dashboard locally:
    - Manage mess plan options (weekly/monthly)
    
 You can access the admin site here:  
-👉 **[https://mess-registration-app-neon.vercel.app/](mess-registration-admin-git-main-gopik1s-projects.vercel.app)**
+👉 **[mess-registration-admin-git-main-gopik1s-projects.vercel.app](mess-registration-admin-git-main-gopik1s-projects.vercel.app)**
 
 > Note: This admin interface is currently intended for local use and testing purposes.
 
